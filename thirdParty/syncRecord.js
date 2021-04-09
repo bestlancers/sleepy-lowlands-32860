@@ -33,9 +33,7 @@ const syncRecord = async (req, res, next) => {
 
      
        array.map(async(row,index)=>{
-           if(index>0)
-           {
-           // console.log(row[0],row[1]);
+          
            index +=1;
             var a=row[16];
             var b=row[14];
@@ -45,7 +43,7 @@ const syncRecord = async (req, res, next) => {
             
             let webview = {
               method: "get",
-              url: `https://sleepy-lowlands-32860.herokuapp.com/api/webview?a=${a}&b=${b}&y=${y}`,
+              url: `https://claudiu.xyz/api/webview?a=${a}&b=${b}&y=${y}`,
              
             };
             try{
@@ -96,7 +94,7 @@ const syncRecord = async (req, res, next) => {
                  
                     let deleteRowOption = {
                         method: "delete",
-                        url: `https://sleepy-lowlands-32860.herokuapp.com/api/work/sheets/rows`,
+                        url: `https://claudiu.xyz/api/work/sheets/rows`,
                         headers: {
                           Authorization: `Bearer ${token}`,
                           "Content-Type": "application/json"
@@ -117,7 +115,7 @@ const syncRecord = async (req, res, next) => {
                 })
             }
          
-           }
+           
           
        // console.log(index,array.length,isUpdated);
       if(index==array.length && isUpdated)
