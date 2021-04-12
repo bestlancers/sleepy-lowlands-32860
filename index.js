@@ -111,8 +111,10 @@ app.get("/api/bcpilist", thirdParty.fetchBcpiList.fetchBcpiList);
 app.get("/api/webview", thirdParty.fetchWebView.fetchWebView);
 app.put("/api/sync",thirdParty.syncRecord.syncRecord);
 
+app.use(express.static('./dist/queryparams'));
+app.use(cors);
 app.get('/*', (req, res) =>
-    res.sendFile('index.html', {root: 'dist/'}),
+    res.sendFile('index.html', {root: 'dist/queryparams/'}),
 );
 
 app.listen(process.env.PORT, () => {
