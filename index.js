@@ -108,6 +108,7 @@ app.get("/api/webview", thirdParty.fetchWebView.fetchWebView);
 app.put("/api/sync",thirdParty.syncRecord.syncRecord);
 
 app.use(express.static('./dist/queryparams'));
+
 app.get('/*', (req, res) =>
     res.sendFile('index.html', {root: 'dist/queryparams/'}),
 );
