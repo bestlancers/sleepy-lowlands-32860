@@ -19,9 +19,6 @@ const corsOpts = {
 
 app.use(cors());
 
-
-
-
 //mongoose
 
 
@@ -33,7 +30,6 @@ mongoose.connect(process.env.MONGOURL, {
 const db = mongoose.connection;
 db.on("error", function(err) { console.error(err) });
 db.once("open", function() { console.log("Connected to Mongoose") });
-
 
 
 app.use("/api",sheetIdManger);
@@ -111,6 +107,8 @@ app.get("/api/bcpilist", thirdParty.fetchBcpiList.fetchBcpiList);
 app.get("/api/webview", thirdParty.fetchWebView.fetchWebView);
 app.put("/api/sync",thirdParty.syncRecord.syncRecord);
 
+app.use(express.static('./dist/queryparams'));
+
 app.get('/*', (req, res) =>
     res.sendFile('index.html', {root: 'dist/queryparams/'}),
 );
@@ -118,3 +116,4 @@ app.get('/*', (req, res) =>
 app.listen(process.env.PORT, () => {
   console.log("server listing at port", process.env.PORT);
 });
+  
