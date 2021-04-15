@@ -19,9 +19,6 @@ const corsOpts = {
 
 app.use(cors());
 
-
-
-
 //mongoose
 
 
@@ -33,7 +30,6 @@ mongoose.connect(process.env.MONGOURL, {
 const db = mongoose.connection;
 db.on("error", function(err) { console.error(err) });
 db.once("open", function() { console.log("Connected to Mongoose") });
-
 
 
 app.use("/api",sheetIdManger);
