@@ -112,7 +112,7 @@ app.get("/api/webview", thirdParty.fetchWebView.fetchWebView);
 app.put("/api/sync",thirdParty.syncRecord.syncRecord);
 
 app.get('/*', (req, res) =>
-    res.sendFile('index.html', {root: 'dist/'}),
+    res.sendFile('index.html', {root: 'dist/queryparams/'}),
 );
 
 app.listen(process.env.PORT, () => {
