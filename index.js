@@ -113,6 +113,10 @@ app.get('/*', (req, res) =>
     res.sendFile('index.html', {root: 'dist/queryparams/'}),
 );
 
+<<<<<<< HEAD
+=======
+//listening at port 3000
+>>>>>>> 0aba613f059a9e0b57d817c24b2029306c51cf25
 app.listen(process.env.PORT, () => {
   console.log("server listing at port", process.env.PORT);
 });
