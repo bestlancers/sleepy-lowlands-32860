@@ -36,7 +36,7 @@ const syncRecord = async (req, res, next) => {
           
            index +=1;
             var a=row[16];
-            var b=row[14];
+            var b=row[22];
             var y=row[15];
            
 
@@ -52,14 +52,14 @@ const syncRecord = async (req, res, next) => {
                 if(JSON.stringify(webviewResponse.data.data)!='{}')
                 {
                   obj = webviewResponse.data.data;
-               // console.log(obj);
+               console.log(obj);
                     row[17]=obj['Data înregistrare:'];
                     row[18]=obj['Termen soluționare:'];
                     row[19]=obj['Obiectul cererii:'];
                     row[20]=obj['Stare curentă:'];
                     rows = [];
                     rows.push(row);
-                   // console.log(row);
+                    console.log(row);
     
                    
                     SheetName = workSheetName+"!A"+index;
