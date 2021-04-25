@@ -1,0 +1,32 @@
+<div class="d-flex flex-column" [formGroup]="appTrackForm" *ngIf="loadCounter === 0">
+  <mat-form-field appearance="standard">
+    <mat-label>OCPI</mat-label>
+    <mat-select (selectionChange)="onOCPIchange($event)" formControlName="ocpi">
+      <mat-option *ngFor="let o of OCPI" [value]="o.oid">{{o.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>BCPI</mat-label>
+    <mat-select (selectionChange)="onBCPIchange($event)"  formControlName="bcpi">
+      <mat-option *ngFor="let o of BCPI" [value]="o.bid">{{o.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Anul</mat-label>
+    <mat-select formControlName="anul">
+      <mat-option *ngFor="let o of Anul" [value]="o">{{o}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Numar</mat-label>
+    <input matInput type="number" formControlName="numar"/>
+  </mat-form-field>
+
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-danger" (click)="onNoClick()">Inapoi</button>
+    <button class="btn btn-primary" (click)="getExtraDetails()">Cauta</button>
+  </div>
+</div>
+<div class="d-flex justify-content-center align-items-center" *ngIf="loadCounter > 0">
+  <mat-spinner></mat-spinner>
+</div>

@@ -1,0 +1,43 @@
+<app-dash-header></app-dash-header>
+<div class="container-fluid">
+  <div class="d-flex flex-row-reverse mt-5">
+    <div class="px-4 py-1">
+      <mat-form-field appearance="Outlined">
+        <span class="text-lg">Anul</span>
+        <mat-select [(value)]="selectedAnul" (selectionChange)="YearChanged()">
+          <mat-option *ngFor="let a of Anul" [value]="a">
+            {{ a }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="mt-5">
+    <div
+      class="d-flex relative justify-content-center align-items-center"
+      style="height: 400px"
+    >
+      <div *ngIf="loadCounter === 0 && pieChartData.length === 0" class="">
+        <span>No data to show</span>
+      </div>
+      <canvas
+        *ngIf="pieChartData.length > 0"
+        baseChart
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [chartType]="pieChartType"
+        [colors]="doughnutColors"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"
+      >
+      </canvas>
+      <div class="position-absolute top-50 start-50 translate-middle mt-4" *ngIf="loadCounter === 0 && pieChartData.length > 0">
+        <span class="text-5xl font-semibold txt-del">Avizate</span>
+      </div>
+    </div>
+  </div>
+  <app-dash-table-view *ngIf="tableClicked" [USER_DATA]="tableData"></app-dash-table-view>
+</div>

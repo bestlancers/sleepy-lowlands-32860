@@ -1,0 +1,17 @@
+/* table {
+  display: block;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0 1em;
+}
+td{
+  padding: 0 15px !important;
+}
+th{
+  padding: 0 15px !important;
+}
+.mat-row:hover {
+  background-color: #aaaaaa;
+} */

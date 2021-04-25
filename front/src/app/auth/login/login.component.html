@@ -1,0 +1,22 @@
+<app-header></app-header>
+<div class="full-screen-page">
+  <div
+    class="card shadow-lg d-flex flex-column justify-content-center align-items-center p-5 rounded"
+  >
+    <span class="login-text-welcome">Welcome</span>
+    <span class="login-text mb-2">Login to your Claudiu Account</span>
+    <img
+      class="cursor-pointer"
+      *ngIf="!config.isLoader"
+      src="assets/btn_google.png"
+      alt="login-btn"
+      (click)="drivePermission()"
+    />
+    <mat-progress-spinner
+      *ngIf="config.isLoader"
+      [diameter]="32"
+      [strokeWidth]="8"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </div>
+</div>

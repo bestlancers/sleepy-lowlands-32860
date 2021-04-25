@@ -1,0 +1,31 @@
+<div class="header d-flex justify-content-between shadow-lg py-2">
+  <span class="header-logo">
+    <img class="header-image" src="assets/icon.JPG" alt="" srcset="" />
+  </span>
+  <div class="d-flex nav-links justify-content-center align-items-center">
+    <span
+      class="nav-items cursor-pointer py-2"
+      [routerLink]="['/dashboard/registru']"
+      routerLinkActive="router-link-active"
+      >Registru Lucrari</span
+    >
+    <span
+      class="nav-items cursor-pointer py-2"
+      [routerLink]="['/dashboard/statistici']"
+      routerLinkActive="router-link-active"
+      >Statistici</span
+    >
+    <div
+      class="d-flex align-items-center cursor-pointer ml-2"
+      [matMenuTriggerFor]="menu"
+    >
+      <span style="font-size: large; font-weight: 400">{{ username }}</span>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item class="cursor-pointer" (click)="logout()">
+        Logout
+      </button>
+    </mat-menu>
+  </div>
+</div>

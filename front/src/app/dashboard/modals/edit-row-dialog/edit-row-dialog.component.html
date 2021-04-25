@@ -1,0 +1,159 @@
+<div class="d-flex flex-row-reverse mt-3">
+  <mat-icon class="cursor-pointer" (click)="onClose()">close</mat-icon>
+</div>
+<div class="">
+  <!-- <div class="d-flex flex-row-reverse mt-5">
+    <div class="d-flex flex-row-reverse">
+      <button
+        class="d-flex align-items-center btn btn-primary text-white flex items-center px-4 py-2"
+        (click)="openTrackModal()"
+      >
+        <span class="text-white uppercase font-semibold"
+          >Application Track Number</span
+        >
+      </button>
+    </div>
+  </div> -->
+  <div class="row mt-4" [formGroup]="regForm">
+    <div class="col-sm">
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Numar lucrare</mat-label>
+          <input matInput formControlName="NumarLucrare" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>DEPUS OCPI</mat-label>
+          <input matInput formControlName="DepusOCPI" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Beneficiar</mat-label>
+          <input matInput formControlName="Beneficiar" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Proprietar</mat-label>
+          <input matInput formControlName="Proprietar" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Observatii</mat-label>
+          <input matInput formControlName="Observatii" readonly/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>UAT</mat-label>
+          <input matInput formControlName="UAT" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Adresa</mat-label>
+          <input matInput formControlName="Adresa" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>CF/Tarla</mat-label>
+          <input matInput formControlName="CFTarla" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Identificator (Nr. Top/nr. cad.)</mat-label>
+          <input matInput formControlName="Identificator" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>contact servicii</mat-label>
+          <input matInput formControlName="ContactServicii" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Pret total lucrare</mat-label>
+          <input matInput formControlName="PretTotalLucrare" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Avans</mat-label>
+          <input matInput formControlName="Avans" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Diferenta</mat-label>
+          <input matInput formControlName="Diferenta" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>OCPI</mat-label>
+          <input matInput formControlName="OCPI" readonly/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>BCPI</mat-label>
+          <input matInput formControlName="BCPI" readonly/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Anul</mat-label>
+          <input matInput formControlName="Anul" readonly/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Numar cerere OCPI</mat-label>
+          <input matInput formControlName="NumarCerereOCPI" readonly/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Data inregistrare</mat-label>
+          <input matInput formControlName="DataInregistrare" readonly/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Termen solutionare</mat-label>
+          <input matInput formControlName="TermenSolutionare" readonly/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Tipul lucrarii</mat-label>
+          <input matInput formControlName="TipulLucrarii"/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Stare curenta</mat-label>
+          <input matInput formControlName="StareCurenta" readonly/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="standard">
+          <mat-label>Lucrare</mat-label>
+          <input matInput formControlName="Lucrare" />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex mt-4 flex-row-reverse">
+    <button class="btn btn-primary" (click)="saveForm()">Actualizați</button>
+    <button class="btn btn-danger mr-2" (click)="onClose()">Inchide</button>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+h1{
+    color:darkblue;
+}
+
+h3{
+    color: darkmagenta;
+}
+
+.mar{
+    margin-left: 5%;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+p{
+    font-weight:bold;
+    
+}
