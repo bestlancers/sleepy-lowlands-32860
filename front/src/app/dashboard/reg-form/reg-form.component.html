@@ -1,9 +1,9 @@
 <app-dash-header></app-dash-header>
 <div class="container">
-  <div class="d-flex flex-row-reverse mt-5">
+  <div class="d-flex flex-row-reverse mt-5" *ngIf="isTrackDetailVisible">
     <div class="d-flex flex-row-reverse">
       <button
-        class="d-flex align-items-center btn btn-primary text-white flex items-center px-4 py-2"
+        class="d-flex align-items-center btn btn-primary text-white flex items-center px-4 py-2"        
         (click)="openTrackModal()"
       >
         <span class="text-white uppercase font-semibold"
@@ -23,19 +23,25 @@
       <div>
         <mat-form-field appearance="standard">
           <mat-label>DEPUS OCPI</mat-label>
-          <input matInput formControlName="DepusOCPI" />
+          <mat-select (selectionChange)="onDepusOCPIchange($event)" formControlName="DepusOCPI">
+            <mat-option *ngFor="let o of DepusOCPI" [value]="o.id">{{o.name}}</mat-option>
+          </mat-select>          
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="standard">
           <mat-label>Beneficiar</mat-label>
           <input matInput formControlName="Beneficiar" />
+          <mat-error *ngIf="regForm.get('Beneficiar').invalid && 
+          (regForm.get('Beneficiar').dirty || regForm.get('Beneficiar').touched)">{{validationMessage}}</mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="standard">
           <mat-label>Proprietar</mat-label>
           <input matInput formControlName="Proprietar" />
+          <mat-error *ngIf="regForm.get('Proprietar').invalid && 
+          (regForm.get('Proprietar').dirty || regForm.get('Proprietar').touched)">{{validationMessage}}</mat-error>
         </mat-form-field>
       </div>
       <div>
@@ -48,30 +54,44 @@
         <mat-form-field appearance="standard">
           <mat-label>UAT</mat-label>
           <input matInput formControlName="UAT" />
+          <mat-error *ngIf="regForm.get('UAT').invalid && 
+          (regForm.get('UAT').dirty || regForm.get('UAT').touched)">{{validationMessage}}</mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="standard">
           <mat-label>Adresa</mat-label>
           <input matInput formControlName="Adresa" />
+          <mat-error *ngIf="regForm.get('Adresa').invalid && 
+          (regForm.get('Adresa').dirty || regForm.get('Adresa').touched)">{{validationMessage}}</mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="standard">
           <mat-label>CF/Tarla</mat-label>
           <input matInput formControlName="CFTarla" />
+          <mat-error *ngIf="regForm.get('CFTarla').invalid && 
+          (regForm.get('CFTarla').dirty || regForm.get('CFTarla').touched)">{{validationMessage}}</mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="standard">
           <mat-label>Identificator (Nr. Top/nr. cad.)</mat-label>
           <input matInput formControlName="Identificator" />
+          <mat-error *ngIf="regForm.get('Identificator').invalid && 
+          (regForm.get('Identificator').dirty || regForm.get('Identificator').touched)">{{validationMessage}}</mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="standard">
           <mat-label>contact servicii</mat-label>
           <input matInput formControlName="ContactServicii" />
+        </mat-form-field>
+      </div>
+      <div [hidden]="!isTrackDetailVisible">
+        <mat-form-field appearance="standard">
+          <mat-label>Stare curenta</mat-label>
+          <input matInput formControlName="StareCurenta" readonly/>
         </mat-form-field>
       </div>
     </div>
@@ -94,54 +114,49 @@
           <input matInput formControlName="Diferenta" />
         </mat-form-field>
       </div>
-      <div>
+      <div [hidden]="!isTrackDetailVisible">
         <mat-form-field appearance="standard">
           <mat-label>OCPI</mat-label>
           <input matInput formControlName="OCPI" id="OCPI" readonly/>
         </mat-form-field>
       </div>
-      <div>
+      <div [hidden]="!isTrackDetailVisible">
         <mat-form-field appearance="standard">
           <mat-label>BCPI</mat-label>
           <input matInput formControlName="BCPI" id="BCPI" readonly/>
         </mat-form-field>
       </div>
-      <div>
+      <div [hidden]="!isTrackDetailVisible">
         <mat-form-field appearance="standard">
           <mat-label>Anul</mat-label>
           <input matInput formControlName="Anul" id="Anul" readonly/>
         </mat-form-field>
       </div>
-      <div>
+      <div [hidden]="!isTrackDetailVisible">
         <mat-form-field appearance="standard">
           <mat-label>Numar cerere OCPI</mat-label>
           <input matInput formControlName="NumarCerereOCPI" id="NumarCerereOCPI" readonly/>
         </mat-form-field>
       </div>
-      <div>
+      <div [hidden]="!isTrackDetailVisible">
         <mat-form-field appearance="standard">
           <mat-label>Data inregistrare</mat-label>
           <input matInput formControlName="DataInregistrare" readonly/>
         </mat-form-field>
       </div>
-      <div>
+      <div [hidden]="!isTrackDetailVisible">
         <mat-form-field appearance="standard">
           <mat-label>Termen solutionare</mat-label>
           <input matInput formControlName="TermenSolutionare" readonly/>
         </mat-form-field>
       </div>
-      <div>
+      <div [hidden]="!isTrackDetailVisible">
         <mat-form-field appearance="standard">
           <mat-label>Tipul lucrarii</mat-label>
           <input matInput formControlName="TipulLucrarii" readonly/>
         </mat-form-field>
       </div>
-      <div>
-        <mat-form-field appearance="standard">
-          <mat-label>Stare curenta</mat-label>
-          <input matInput formControlName="StareCurenta" readonly/>
-        </mat-form-field>
-      </div>
+      
       <div>
         <mat-form-field appearance="standard">
           <mat-label>Lucrare</mat-label>
@@ -156,14 +171,14 @@
         </mat-form-field>
       </div>
 
-      <div>
+      <div [hidden]="true"> 
         <mat-form-field appearance="standard">
           <mat-label>CombinedkeyOBNY</mat-label>
           <input  matInput formControlName="CombinedkeyOBNY" readonly/>
         </mat-form-field>
       </div>
      
-     <div>
+     <div [hidden]="true">
         <mat-form-field appearance="standard">
           <mat-label>QueryParamOCPI</mat-label>
           <input  matInput formControlName="QueryParamOCPI" id="QueryParamOCPI" readonly/>

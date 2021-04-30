@@ -12,18 +12,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./reg-form.component.css']
 })
 export class RegFormComponent implements OnInit {
-
+  validationMessage:string = 'This is a required field';
+  DepusOCPI = [{id:2,name:'DA'},{id:1,name:'NU'}];
+  isTrackDetailVisible : boolean = true;
   driveAccessToken = localStorage.getItem('driveAccessToken');
   regForm = new FormGroup({
     NumarLucrare: new FormControl(null),
     DepusOCPI: new FormControl(null),
-    Beneficiar: new FormControl(null),
-    Proprietar: new FormControl(null),
+    Beneficiar: new FormControl(null, Validators.required),
+    Proprietar: new FormControl(null, Validators.required),
     Observatii: new FormControl(null),
-    UAT: new FormControl(null),
-    Adresa: new FormControl(null),
-    CFTarla: new FormControl(null),
-    Identificator: new FormControl(null),
+    UAT: new FormControl(null, Validators.required),
+    Adresa: new FormControl(null, Validators.required),
+    CFTarla: new FormControl(null, Validators.required),
+    Identificator: new FormControl(null, Validators.required),
     ContactServicii: new FormControl(null),
     PretTotalLucrare: new FormControl(null),
     Avans: new FormControl(null),
@@ -102,7 +104,6 @@ export class RegFormComponent implements OnInit {
                 break;
               case 'ocpiStr':
                 this.regForm.get('OCPI').setValue(value[0])
-                this.regForm.get('UAT').setValue(value[0])
                 break;
               case 'ocpi':
                 this.regForm.get('QueryParamOCPI').setValue(value[0])
@@ -150,11 +151,21 @@ export class RegFormComponent implements OnInit {
           console.error(err);
         }
       )
+    }else{
+      this.regForm.markAllAsTouched()
     }
   }
 
   cancel() {
     this.router.navigate(['/dashboard/registru']);
   }
+  onDepusOCPIchange(event) {
+    if(event.source.triggerValue == 'NU'){
+    this.isTrackDetailVisible = false;
+    }else
+    {
+      this.isTrackDetailVisible = true;
+    }
+   }
 
 }
