@@ -40,6 +40,9 @@ const syncRecord = async (req, res, next) => {
             var y=row[15];
            
 
+            if(a&&b&&y)
+            {
+
             
             let webview = {
               method: "get",
@@ -90,21 +93,7 @@ const syncRecord = async (req, res, next) => {
                   }
                 
                 }
-                else{
-                 
-                    let deleteRowOption = {
-                        method: "delete",
-                        url: `https://claudiu.xyz/api/work/sheets/rows`,
-                        headers: {
-                          Authorization: `Bearer ${token}`,
-                          "Content-Type": "application/json"
-                        },
-                        data: JSON.stringify({ sheetId:sheetId,workSheetName:workSheetName,ocpi:row[13],bcpi:row[14],numar:row[16],year:row[15] })
-                      }; 
-                      let deleteResponse = await axios(deleteRowOption);
-                     // console.log(deleteResponse.data.data);
-                      changeBool();
-                }
+               
                }
             catch(err)
             {
@@ -114,6 +103,9 @@ const syncRecord = async (req, res, next) => {
                   data:err
                 })
             }
+          }else{
+            changeBool();
+          }
          
            
           

@@ -5,7 +5,7 @@ const deleteRow = async (req, res, next) => {
   let bearer = req.headers.authorization;
 
   let token = bearer.split(" ")[1];
-  let { sheetId, workSheetName,ocpi,bcpi,numar,year} = req.body;
+  let { sheetId, workSheetName,lucrare} = req.body;
   
  
   try {
@@ -26,7 +26,7 @@ const deleteRow = async (req, res, next) => {
      // console.log(len);
      if(array && array.length)
      {
-      var index = array.findIndex((row)=>{return row[13]==ocpi && row[14]==bcpi && row[16]==numar && row[15]==year});
+      var index = array.findIndex((row)=>{return row[0]==lucrare});
       // console.log(index);
 
          if(index==-1)
