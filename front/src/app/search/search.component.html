@@ -1,0 +1,23 @@
+<p>search works!</p>
+
+<input id="name" type="text" [ngModel]="name" (ngModelChange)="valueChange($event)"/>
+<input id="id" type="text" [ngModel]="id" (ngModelChange)="valueChange1($event)"/>
+<input id="title" type="text" [ngModel]="title" (ngModelChange)="valueChange2($event)"/>
+<button (click)="getContact(name,id,title)">get contact</button>
+
+
+<!-- sunt aut facere repellat provident occaecati excepturi optio reprehenderit -->
+<table>
+    <thead>
+        <td>userid</td>
+        <td>id</td>
+        <td>title</td>
+    </thead>
+    <tbody>
+        <tr *ngFor="let u of user">
+            <td>{{u.userId}}</td>
+            <td>{{u.id}}</td>
+            <td>{{u.title}}</td>
+        </tr>
+    </tbody>
+</table>

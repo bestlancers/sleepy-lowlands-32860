@@ -1,0 +1,84 @@
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Detalii De Urmărire</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div [innerHTML]="user"></div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-success">Salvati</button> -->
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Inchide</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+<div class="mar">
+ <h3>Parametrii cautarii</h3>
+ <br/>
+<table class="table borderless">
+            <thead class="thead-dark">
+                
+            </thead>
+            <tbody>
+                <tr >
+                    <td> <p>OCPI</p></td>
+                    <td>
+                    <select  class="form-select" [(ngModel)]="selectedname" (change)="onChangeName($event)" data-live-search="true">
+                        <option value="0"> Select  </option>
+                        <option *ngFor="let test of drop "  [value]="test.oid">{{test.name}}</option>
+                    </select>
+                    </td>
+                    
+                </tr>
+                <tr >
+                    <td><p>BCPI</p></td>
+                    <td>
+                         <select  class="form-select" [(ngModel)]="selectname" (change)="onChangeName1($event)" data-live-search="true">
+                            <option value="0"> Select  </option>
+                            <option *ngFor="let m of drop3" [value]="m.bid">{{m.name}}</option>
+                        </select>
+                    </td>
+                   
+                </tr>
+                <tr >
+                    <td> <p>Anual</p></td>
+                    <td>
+                        <input type="text" [ngModel]="year" (ngModelChange)="yearChange($event)" required/>
+                    </td>
+                   
+                </tr>
+                <tr >
+                    <td> <p>Numar</p></td>
+                    <td>
+                        <input  type="text" [ngModel]="numar" (ngModelChange)="numarChange($event)" required/>
+                    </td>
+                   
+                </tr>
+                 <tr >
+                    <td></td>
+                    <td>
+                                                
+                        <button type="button" class="btn btn-warning" (click)="getContact(selectname,year,numar)" 
+                        data-toggle="modal" data-target="#exampleModalCenter">Cauta</button> &nbsp; &nbsp;
+                        <button type="button" class="btn btn-danger" routerLink="/para">înapoi</button>
+                    </td>
+                    <td>
+                      
+                    </td>
+                   
+                </tr>
+
+            </tbody>
+</table>
+<hr/>
+</div>
+
+    

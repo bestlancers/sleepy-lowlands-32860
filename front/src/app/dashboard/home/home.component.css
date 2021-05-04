@@ -1,0 +1,15 @@
+/* table {
+  width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0 1em;
+  min-height: 500px;
+}
+td{
+  padding: 0 15px !important;
+}
+th{
+  padding: 0 15px !important;
+}
+.mat-row:hover {
+  background-color: #aaaaaa;
+} */

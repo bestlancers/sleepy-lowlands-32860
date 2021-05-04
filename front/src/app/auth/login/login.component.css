@@ -1,0 +1,16 @@
+.full-screen-page{
+    display: flex;
+    height: calc(100vh - 64px);
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+.login-text{
+  font-size: large;
+  font-weight: 600;
+}
+.login-text-welcome{
+  font-size: x-large;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
