@@ -1,5 +1,54 @@
 const axios = require("axios");
 
+const findMinLucrare= async(workSheetName,sheetId,token)=>{
+    workSheetName += "!A:A";
+  try {
+    // let token = req.b;
+    let request = {
+      method: "get",
+      url: `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${workSheetName}?majorDimension=COLUMNS`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    };
+    let workSheetResponse = await axios(request);
+    console.log(workSheetResponse);
+     let array = workSheetResponse.data.values;
+    
+     if(array && array.length)
+     {
+       array=array[0];
+     
+        array.sort((a,b)=>{return a-b});
+        console.log(array);
+        let l=0,r=array.length-1;
+        while(l<=r)
+        {
+          if(l!=array[l])
+          {
+            return l;
+          }
+          let m=Math.floor((l+r)/2);
+          //console.log(m,array[m]);
+          if(m==array[m])
+          {
+            l=m+1;
+          }else{
+            r=m-1;
+          }
+          //console.log(l);
+        }
+        return l;
+     }else{
+       return 0;
+     }
+  }catch(err)
+  {
+     console.log(err);
+     
+  }
+}
 const appendRow = async (req, res, next) => {
   let bearer = req.headers.authorization;
 
@@ -20,13 +69,23 @@ const appendRow = async (req, res, next) => {
     let workSheetResponse = await axios(request);
   // console.log(workSheetResponse.data.values)
       let array =  workSheetResponse.data.values;
+       let lucrare = await findMinLucrare(workSheetName,sheetId,token);
+       console.log(lucrare);
+       values[0][0]=lucrare;
        let isDuplicate = false;
        let len=0;
+       let str2=values[0].join("*");
+       str2 = str2.substring(str2.indexOf("*")+1);
        if(array && array.length)
        {
         array.map(async(row,index)=>{
           // console.log(row[13],values[0][13]);
-          if(row[13]===values[0][13] && row[14]===values[0][14] && row[16]===values[0][16] && row[15]===values[0][15])
+          let str1=row.join("*");
+          str1 = str1.substring(str1.indexOf("*")+1);
+         
+          console.log(str1);
+          console.log(str2);
+          if(str1==str2)
           {
              isDuplicate=true;
           }
