@@ -101,7 +101,8 @@ app.put("/api/work/sheets/rows", googleAction.updateRecord.updatedRecord);
 app.delete("/api/work/sheets/rows",googleAction.deleteRow.deleteRow);
 app.post("/api/statistics/count",googleAction.countTrackNumber.countTrackNumber);
 app.post("/api/statistics/record",googleAction.fetchStatisticsRecord.fetchStatisticsRecord);
-
+app.post("/api/lucrare",googleAction.findMinLucrare.findMinLucrare);
+app.post("/api/lucrare/check",googleAction.isLucrareExists.isLucrareExists);
 app.get("/api/ocpilist", thirdParty.fetchOcpiList.fetchOcpiList);
 app.get("/api/bcpilist", thirdParty.fetchBcpiList.fetchBcpiList);
 app.get("/api/webview", thirdParty.fetchWebView.fetchWebView);

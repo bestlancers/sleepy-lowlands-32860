@@ -10,3 +10,5 @@ exports.deleteRow = require("./deleteRow");
 exports.countTrackNumber = require("./countTrackNumber");
 exports.fetchStatisticsRecord = require("./fetchStatisticsRecord");
 exports.sendNewToken = require('./sendNewToken');
+exports.findMinLucrare = require('./findMinLucrare');
+exports.isLucrareExists = require('./isLucrareExists');
