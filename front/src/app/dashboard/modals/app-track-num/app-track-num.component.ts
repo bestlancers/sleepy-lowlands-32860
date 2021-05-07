@@ -115,13 +115,32 @@ export class AppTrackNumComponent implements OnInit {
       this.http.get(environment.baseUrl + 'webview?b=' + formdata.bcpi + '&y=' + formdata.anul + '&a=' + formdata.numar).subscribe(
         (res: any) => {
           console.log(res.data);
+          let dataObj:any = {response : res.htmlEntity};
+          if(this.data)
+          {
+            let row = Object.values(this.data.rowData);
+            row[13] = formdata.ocpiStr;
+            row[14] = formdata.bcpiStr;
+            row[15] = formdata.anul;
+            row[16] = formdata.numar;
+            row[17] = res.data["Data înregistrare:"];
+            row[18] = res.data["Termen soluționare:"];
+            row[19] = res.data["Obiectul cererii:"];
+            row[20] = res.data["Stare curentă:"];
+            dataObj.rowData = row;
+          }
+       
           this.dialog.open(ExtraDetailsComponent, {
             width: '40vw',
             maxHeight: '100vh',
-            data: res.htmlEntity
+            data: dataObj,
           }).afterClosed().subscribe(result => {
             if (result.type) {
               this.dialogRef.close({ isCancel: false, data: [res.data, ...fieldsData] });
+            }
+            else if(result.hasOwnProperty('isUpdated'))
+            {
+              this.dialogRef.close({ isCancel: result.isCancel, isUpdated: result.isUpdated });
             }
           });
         },

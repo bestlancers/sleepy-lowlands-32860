@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AppTrackNumComponent } from '../modals/app-track-num/app-track-num.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class RegFormComponent implements OnInit {
   validationMessage:string = 'This is a required field';
+  NumarLucrare_exist:string = 'Numar lucrare already exist';
   DepusOCPI = [{id:2,name:'DA'},{id:1,name:'NU'}];
   isTrackDetailVisible : boolean = true;
   driveAccessToken = localStorage.getItem('driveAccessToken');
@@ -30,14 +31,14 @@ export class RegFormComponent implements OnInit {
     PretTotalLucrare: new FormControl(null),
     Avans: new FormControl(null),
     Diferenta: new FormControl(null),
-    OCPI: new FormControl(null, Validators.required),
-    BCPI: new FormControl(null, Validators.required),
-    Anul: new FormControl(null, Validators.required),
-    NumarCerereOCPI: new FormControl(null, Validators.required),
-    DataInregistrare: new FormControl(null, Validators.required),
-    TermenSolutionare: new FormControl(null, Validators.required),
+    OCPI: new FormControl(null),
+    BCPI: new FormControl(null),
+    Anul: new FormControl(null),
+    NumarCerereOCPI: new FormControl(null),
+    DataInregistrare: new FormControl(null),
+    TermenSolutionare: new FormControl(null),
     TipulLucrarii: new FormControl(null),
-    StareCurenta: new FormControl(null, Validators.required),
+    StareCurenta: new FormControl(null),
     Lucrare: new FormControl(null),
     QueryParamBCPI: new FormControl(""),
     CombinedkeyOBNY: new FormControl(""),
@@ -54,6 +55,57 @@ export class RegFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getNumarLucrareValue();
+  }
+  
+  getNumarLucrareValue()
+  {
+    const payload = {
+      sheetId: localStorage.getItem('sheetId'),
+      workSheetName: 'Sheet1',      
+    }
+    var header = {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${this.driveAccessToken}`)
+    }
+    this.http.post(environment.baseUrl + 'lucrare', payload, header).subscribe(
+      (res: any) => {
+        if(res.lucrare)
+        {
+          this.regForm.get('NumarLucrare').setValue(res.lucrare);
+        }
+      },
+      err => {
+        console.error(err);
+      }
+    )
+  }  
+ 
+  numarLucrareBlur(){
+    this.checkNumarLucrareValue().subscribe(
+      (res: any) => {
+        if(res.data){
+          this.regForm.controls['NumarLucrare'].setErrors({ exist: this.NumarLucrare_exist });
+        }
+      },
+      err => {
+        console.error(err);
+      }
+    )
+  }
+  checkNumarLucrareValue()
+  {
+    const payload = {
+      sheetId: localStorage.getItem('sheetId'),
+      workSheetName: 'Sheet1',  
+      lucrare: this.regForm.get('NumarLucrare').value,
+    }
+    console.log('payload',payload);
+    var header = {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${this.driveAccessToken}`)
+    }
+    return this.http.post(environment.baseUrl + 'lucrare/check', payload, header);
   }
   openTrackModal() {
     this.dialog.open(AppTrackNumComponent, {
@@ -133,24 +185,41 @@ export class RegFormComponent implements OnInit {
 
   saveForm() {
     if (this.regForm.valid) {
-      const payload = {
-        sheetId: localStorage.getItem('sheetId'),
-        workSheetName: 'Sheet1',
-        values: [Object.values(this.regForm.value)],
-      }
-      console.log('payload',payload);
-      var header = {
-        headers: new HttpHeaders()
-          .set('Authorization', `Bearer ${this.driveAccessToken}`)
-      }
-      this.http.post(environment.baseUrl + 'work/sheets/rows', payload, header).subscribe(
+      this.checkNumarLucrareValue().subscribe(
         (res: any) => {
-          this.router.navigate(['/dashboard/registru']);
+          if(!res.data){
+                if(this.regForm.get('DepusOCPI').value == 'NU')
+                {
+                  this.regForm.patchValue({"OCPI": "", "BCPI":"","Anul":"","NumarCerereOCPI":"","DataInregistrare":"","TermenSolutionare":"","TipulLucrarii":"","StareCurenta":""});
+                }
+                const payload = {
+                  sheetId: localStorage.getItem('sheetId'),
+                  workSheetName: 'Sheet1',
+                  values: [Object.values(this.regForm.value)],
+                }
+                console.log('payload',payload);
+                var header = {
+                  headers: new HttpHeaders()
+                    .set('Authorization', `Bearer ${this.driveAccessToken}`)
+                }
+                this.http.post(environment.baseUrl + 'work/sheets/rows', payload, header).subscribe(
+                  (res: any) => {
+                    this.router.navigate(['/dashboard/registru']);
+                  },
+                  err => {
+                    console.error(err);
+                  }
+                )
+            }
+            else
+            {
+              this.regForm.controls['NumarLucrare'].setErrors({ exist: this.NumarLucrare_exist });
+            }
         },
         err => {
           console.error(err);
         }
-      )
+      )     
     }else{
       this.regForm.markAllAsTouched()
     }

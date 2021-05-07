@@ -49,6 +49,9 @@ export class AuthService {
       }
     );
   }
+  generateNewToken(data): Observable<any> {
+    return this.http.post(environment.baseUrl + 'newtoken', data);
+  }
   logout(){
     this.configService.setConfig({ isLoader: false });
     localStorage.clear();

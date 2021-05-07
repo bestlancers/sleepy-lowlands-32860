@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ViewRowDetailsComponent } from './../modals/view-row-details/view-row-details.component';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { AppTrackNumComponent } from '../modals/app-track-num/app-track-num.component';
 
 @Component({
   selector: 'app-home',
@@ -132,6 +133,30 @@ export class HomeComponent implements OnInit {
       }
     })
 
+  }
+  UpdateDepusOCPI(elem)
+  {
+    this.dialog.open(AppTrackNumComponent, {
+      width: '40vw',
+      data : { rowData:elem }
+    }).afterClosed().subscribe(
+      (result: any) => {
+        if (!result.isCancel && result.isUpdated) {
+          this.getSheetData();
+          this.snackbar.open('Row updated', 'Ok', {
+            duration: 2000
+          });
+        }
+        else if (!result.isCancel && !result.isUpdated) {
+          this.snackbar.open('something went wrong', 'Ok', {
+            duration: 2000
+          });
+        }
+      },
+      err => {
+        console.error(err);
+      }
+    )
   }
   ViewData(elem){
     this.dialog.open(ViewRowDetailsComponent, {

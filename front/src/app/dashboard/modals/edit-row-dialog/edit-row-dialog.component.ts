@@ -15,6 +15,7 @@ import { AppTrackNumComponent } from '../app-track-num/app-track-num.component';
 export class EditRowDialogComponent implements OnInit {
 
   driveAccessToken = localStorage.getItem('driveAccessToken');
+  NumarLucrare_exist:string = 'Numar lucrare already exist';
   regForm = new FormGroup({
     NumarLucrare: new FormControl(null, Validators.required),
     DepusOCPI: new FormControl(null, Validators.required),
@@ -52,9 +53,38 @@ export class EditRowDialogComponent implements OnInit {
       this.regForm.get(o).setValue(formdata[i]);
     })
   }
+ 
+  numarLucrareBlur(){
+    if(this.data.data[0] &&  this.regForm.get('NumarLucrare').value && this.data.data[0] != this.regForm.get('NumarLucrare').value)
+    {
+      this.checkNumarLucrareValue().subscribe(
+        (res: any) => {
+          if(res.data){
+            this.regForm.controls['NumarLucrare'].setErrors({ exist: this.NumarLucrare_exist });
+          }
+        },
+        err => {
+          console.error(err);
+        }
+      )
+    }
+  }
+  checkNumarLucrareValue()
+  {
+    const payload = {
+      sheetId: localStorage.getItem('sheetId'),
+      workSheetName: 'Sheet1',  
+      lucrare: this.regForm.get('NumarLucrare').value,
+    }
+    console.log('payload',payload);
+    var header = {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${this.driveAccessToken}`)
+    }
+    return this.http.post(environment.baseUrl + 'lucrare/check', payload, header);
+  }
 
-  saveForm() {
-    console.log(this.regForm.value);
+  saveData(){
     const payload = {
       sheetId: localStorage.getItem('sheetId'),
       workSheetName: 'Sheet1',
@@ -88,6 +118,32 @@ export class EditRowDialogComponent implements OnInit {
       }
     )
   }
+
+  saveForm() {
+    if(this.data.data[0] &&  this.regForm.get('NumarLucrare').value && this.data.data[0] != this.regForm.get('NumarLucrare').value)
+    {
+      this.checkNumarLucrareValue().subscribe(
+        (res: any) => {
+          if(!res.data){
+            this.saveData();
+          }
+          else
+          {
+              this.regForm.controls['NumarLucrare'].setErrors({ exist: this.NumarLucrare_exist });
+          }
+        },
+        err => {
+          console.error(err);
+        }
+      )  
+    }else{
+      this.saveData();
+    }
+    
+  }
+
+
+  
 
   onClose() {
     this.dialogRef.close({isCancel: true});

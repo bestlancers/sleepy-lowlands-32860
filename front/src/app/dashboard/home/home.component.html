@@ -64,6 +64,9 @@
               <mat-icon class="cursor-pointer" (click)="DeleteRow(i)"
                 >delete</mat-icon
               >
+              <mat-icon *ngIf="user[1] == 'NU'" class="cursor-pointer" (click)="UpdateDepusOCPI(user,i)"
+                >link</mat-icon
+              >
             </div>
           </td>
         </tr>

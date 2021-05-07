@@ -17,14 +17,15 @@
       <div>
         <mat-form-field appearance="standard">
           <mat-label>Numar lucrare</mat-label>
-          <input matInput formControlName="NumarLucrare" />
+          <input matInput formControlName="NumarLucrare" (blur)="numarLucrareBlur()" />
+          <mat-error *ngIf="regForm.get('NumarLucrare').invalid && regForm.get('NumarLucrare').errors">{{regForm.get('NumarLucrare')?.errors?.exist}}</mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="standard">
           <mat-label>DEPUS OCPI</mat-label>
           <mat-select (selectionChange)="onDepusOCPIchange($event)" formControlName="DepusOCPI">
-            <mat-option *ngFor="let o of DepusOCPI" [value]="o.id">{{o.name}}</mat-option>
+            <mat-option *ngFor="let o of DepusOCPI" [value]="o.name">{{o.name}}</mat-option>
           </mat-select>          
         </mat-form-field>
       </div>
