@@ -89,10 +89,7 @@ export class EditRowDialogComponent implements OnInit {
       sheetId: localStorage.getItem('sheetId'),
       workSheetName: 'Sheet1',
       values: [Object.values(this.regForm.value)],
-      ocpi: this.regForm.get('OCPI').value,
-      bcpi: this.regForm.get('BCPI').value,
-      numar: this.regForm.get('NumarCerereOCPI').value,
-      year: this.regForm.get('Anul').value
+      lucrare: this.regForm.get('NumarLucrare').value
     }
     var header = {
       headers: new HttpHeaders()

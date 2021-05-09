@@ -24,7 +24,7 @@ export class ExtraDetailsComponent implements OnInit {
       const payload = {
         sheetId: localStorage.getItem('sheetId'),
         workSheetName: 'Sheet1',
-        values: [Object.values(this.data.rowData)],
+        values: [this.data.rowData],
         lucrare:this.data.rowData[0],
       }
       var header = {

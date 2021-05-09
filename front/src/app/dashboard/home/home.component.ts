@@ -103,10 +103,7 @@ export class HomeComponent implements OnInit {
           body: {
             sheetId: this.sheetId,
             workSheetName: "sheet1",
-            ocpi: deleteData[13],
-            bcpi: deleteData[14],
-            numar: deleteData[16],
-            year: deleteData[15]
+            lucrare: deleteData[0]
           }
         }
         this.http.request('DELETE', environment.baseUrl+'work/sheets/rows', options).subscribe(
