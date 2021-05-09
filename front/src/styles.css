@@ -9,3 +9,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .bg-grey{
   background-color: #707070;
 }
+
+/* below css is for custom sort icon */
+
+.mat-sort-header-stem{
+  height: 14px !important;
+}
+
+.custom-sorting-icon .mat-sort-header-indicator {
+ top: 3px;
+}
+
+.text-green{
+  color:#228B22;
+}

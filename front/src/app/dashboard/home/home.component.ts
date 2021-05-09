@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   sheetId = localStorage.getItem('sheetId')
   USER_DATA = [];
   SORT_USER_DATA = [];
+  sortingOrder:string;
   constructor(private http: HttpClient, private dialog: MatDialog, private snackbar: MatSnackBar, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -51,6 +52,12 @@ export class HomeComponent implements OnInit {
             this.USER_DATA.push(stringToJsonObject);
           });
            this.SORT_USER_DATA = _.cloneDeep(this.USER_DATA);
+           let defaultSorting: any ={
+            active:"NumarLucrare",
+            direction: "asc"
+           };
+           
+           this.sortData(defaultSorting);
           //this.USER_DATA.splice(0,1);
           
         }
@@ -209,6 +216,7 @@ export class HomeComponent implements OnInit {
   }
 
   sortData(sort: Sort) {
+    this.sortingOrder = sort.direction;
     if (!sort.active || sort.direction === '') {
       this.USER_DATA = this.SORT_USER_DATA.slice();
       return;
