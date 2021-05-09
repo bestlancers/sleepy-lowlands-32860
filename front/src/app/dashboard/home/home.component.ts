@@ -10,6 +10,8 @@ import { ViewRowDetailsComponent } from './../modals/view-row-details/view-row-d
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { AppTrackNumComponent } from '../modals/app-track-num/app-track-num.component';
+import { Sort } from '@angular/material/sort';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,7 @@ export class HomeComponent implements OnInit {
   driveAccessToken = localStorage.getItem('driveAccessToken');
   sheetId = localStorage.getItem('sheetId')
   USER_DATA = [];
+  SORT_USER_DATA = [];
   constructor(private http: HttpClient, private dialog: MatDialog, private snackbar: MatSnackBar, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -47,6 +50,7 @@ export class HomeComponent implements OnInit {
             var stringToJsonObject = JSON.parse(arrayToString);
             this.USER_DATA.push(stringToJsonObject);
           });
+           this.SORT_USER_DATA = _.cloneDeep(this.USER_DATA);
           //this.USER_DATA.splice(0,1);
           
         }
@@ -198,4 +202,25 @@ export class HomeComponent implements OnInit {
     )
   }
 
+  compare(a: any, b: any,isAsc) {
+    if(isAsc)
+    return a-b;    
+    else return b-a;    
+  }
+
+  sortData(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      this.USER_DATA = this.SORT_USER_DATA.slice();
+      return;
+    }
+    const isAsc = sort.direction === 'asc';
+    this.USER_DATA.sort((a:any, b:any) => {
+    switch (sort.active) {
+      case 'NumarLucrare':
+        return this.compare(a[0],b[0],isAsc);          
+          default:
+            return 0;
+      }
+    });  
+  }
 }

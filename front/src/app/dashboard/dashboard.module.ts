@@ -22,6 +22,7 @@ import { ChartsModule } from 'ng2-charts';
 import { EditRowDialogComponent } from './modals/edit-row-dialog/edit-row-dialog.component';
 import { ViewRowDetailsComponent } from './modals/view-row-details/view-row-details.component';
 import { DashTableViewComponent } from './dash-stats/dash-table-view/dash-table-view.component';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [HomeComponent, RegFormComponent, AppTrackNumComponent, ExtraDetailsComponent, DashHeaderComponent, DashStatsComponent, DeleteRowDialogComponent, EditRowDialogComponent, ViewRowDetailsComponent, DashTableViewComponent],
@@ -37,7 +38,8 @@ import { DashTableViewComponent } from './dash-stats/dash-table-view/dash-table-
     MatInputModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    ChartsModule
+    ChartsModule,
+    MatSortModule
   ],
 })
 export class DashboardModule { }
